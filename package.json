@@ -1,0 +1,25 @@
+{
+  "name": "eshop-expressjs",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Backend for e-shop project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js --exec babel-node --presets babel-preset-env"
+  },
+  "author": "Teemu Salminen",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "pg": "^8.0.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.1.0",
+    "babel-preset-env": "^1.7.0"
+  }
+}

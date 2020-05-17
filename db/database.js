@@ -10,7 +10,7 @@ class Database {
   constructor() {
     this.categoryDao = new CategoryDao(this.getDatabase);
     this.productDao = new ProductDao(this.getDatabase);
-    this.initTestData();
+    //this.initTestData();
   }
 
   async initTestData() {

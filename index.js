@@ -25,8 +25,19 @@ app.use(function (req, res, next) {
 const database = new Database();
 
 app.get('/products/', async(request, response) => {
-  const products = await database.productDao.getProductsAsync();
+  let filters = null;
 
+  if (Object.keys(request.query).length !== 0) {
+    const categoryId = request.query.categoryId ? request.query.categoryId : null;
+    const searchText = request.query.searchText ? request.query.searchText : null;
+
+    filters = {
+      searchText: searchText,
+      categoryId: categoryId
+    };
+  }
+  const products = await database.productDao.getProductsByFiltersAsync(filters);
+  
   response.send(products);
 });
 
@@ -45,6 +56,12 @@ app.post('/products/', async(request, response) => {
 
   response.send(insertProduct);
 });
+
+app.get('/category/', async(request, response) => {
+  const categories = await database.categoryDao.getCategoriesAsync();
+
+  response.send(categories);
+})
 
 var server = app.listen(3000, function () {
   console.log('Server listening in http://localhost:3000/employees')

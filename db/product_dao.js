@@ -141,6 +141,20 @@ class ProductDao {
     }
   }
 
+  async deleteProductAsync(productId) {
+    const db = this.database();
+
+    try {
+      const queryResult = await db.query(
+        `DELETE FROM product
+        WHERE id = ${productId}`);
+    } catch(error) {
+      throw error;
+    } finally {
+      db.close();
+    }
+  }
+
 }
 
 export default ProductDao;

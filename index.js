@@ -66,6 +66,14 @@ app.put('/products/', async(request, response) => {
   response.send(updatedProduct);
 });
 
+app.delete('/products/:id([0-9]+)', async(request, response) => {
+  const deleteId = request.params.id;
+
+  await database.productDao.deleteProductAsync(deleteId);
+
+  response.send({ id: deleteId });
+});
+
 app.get('/category/', async(request, response) => {
   const categories = await database.categoryDao.getCategoriesAsync();
 

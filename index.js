@@ -36,6 +36,7 @@ app.get('/products/', async(request, response) => {
       categoryId: categoryId
     };
   }
+
   const products = await database.productDao.getProductsByFiltersAsync(filters);
   
   response.send(products);
@@ -57,6 +58,14 @@ app.post('/products/', async(request, response) => {
   response.send(insertProduct);
 });
 
+app.put('/products/', async(request, response) => {
+  const product = request.body;
+
+  const updatedProduct = await database.productDao.updateProductAsync(product);
+
+  response.send(updatedProduct);
+});
+
 app.get('/category/', async(request, response) => {
   const categories = await database.categoryDao.getCategoriesAsync();
 
@@ -64,6 +73,6 @@ app.get('/category/', async(request, response) => {
 })
 
 var server = app.listen(3000, function () {
-  console.log('Server listening in http://localhost:3000/employees')
+  console.log('Server listening in http://localhost:3000/employeess')
 });
 

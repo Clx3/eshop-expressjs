@@ -34,6 +34,42 @@ class CategoryDao {
       db.close();
     }
   }
+
+  async updateCategoryAsync(category) {
+    const db = this.database();
+
+    try {
+      const queryResult = await db.query(`
+        UPDATE category
+        SET name = '${category.name}'
+        WHERE id = ${category.id}`);
+
+      return category;
+    } catch (error) {
+      throw error;
+    } finally {
+      db.close();
+    }
+  }
+
+  async deleteCategoryAsync(id) {
+    const db = this.database();
+
+    try {
+      // TODO: Implement deletion of products that use this category!
+
+      const queryResult = await db.query(`
+        DELETE FROM category
+        WHERE id = ${id}`);
+
+      return id;
+    } catch (error) {
+      throw error;
+    } finally {
+      db.close();
+    }
+  }
+
 }
 
 export default CategoryDao;

@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { request } from 'express';
 import bodyParser from 'body-parser';
 import Database from './db/database';
 
@@ -78,7 +78,31 @@ app.get('/category/', async(request, response) => {
   const categories = await database.categoryDao.getCategoriesAsync();
 
   response.send(categories);
-})
+});
+
+app.post('/category/', async(request, response) => {
+  const category = request.body;
+
+  const insertedCategory = await database.categoryDao.insertCategoryAsync(category);
+
+  response.send(insertedCategory);
+});
+
+app.put('/category/', async(request, response) => {
+  const category = request.body;
+
+  const updatedCategory = await database.categoryDao.updateCategoryAsync(category);
+
+  response.send(updatedCategory);
+});
+
+app.delete('/category/:id([0-9]+)', async(request, response) => {
+  const deleteId = request.params.id;
+
+  await database.categoryDao.deleteCategoryAsync(deleteId);
+
+  response.send({ id: deleteId });
+});
 
 var server = app.listen(3000, function () {
   console.log('Server listening in http://localhost:3000/employeess')

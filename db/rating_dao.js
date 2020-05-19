@@ -4,7 +4,7 @@ class RatingDao {
     this.database = database;
   }
 
-  getRatingsByProductIdAsync(productId) {
+  async getRatingsByProductIdAsync(productId) {
     const db = this.database();
 
     try {
@@ -20,7 +20,7 @@ class RatingDao {
     }
   }
 
-  insertRatingAsync(rating) {
+  async insertRatingAsync(rating) {
     const db = this.database();
 
     try {

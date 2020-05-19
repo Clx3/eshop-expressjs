@@ -27,11 +27,11 @@ class RatingDao {
       const queryResult = await db.query(`
         INSERT INTO rating
         (productId, username, comment, ratingValue)
-        VALUES 
+        VALUES (
         ${rating.productId},
         '${rating.username}',
         '${rating.comment}',
-        ${rating.ratingValue}`);
+        ${rating.ratingValue})`);
 
         const insertedRating = {
           id: queryResult.insertId,

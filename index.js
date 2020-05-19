@@ -104,6 +104,22 @@ app.delete('/category/:id([0-9]+)', async(request, response) => {
   response.send({ id: deleteId });
 });
 
+app.get('/products/:id([0-9]+)/ratings/', async(request, response) => {
+  const productId = request.params.id;
+
+  const ratings = await database.ratingDao.getRatingsByProductIdAsync(productId);
+
+  response.send(ratings);
+});
+
+app.post('/ratings/', async(request, response) => {
+  const rating = request.body;
+
+  const insertedRating = await database.ratingDao.insertRatingAsync(rating);
+
+  response.send(insertedRating);
+});
+
 var server = app.listen(3000, function () {
   console.log('Server listening in http://localhost:3000/employeess')
 });

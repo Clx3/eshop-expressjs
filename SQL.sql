@@ -15,3 +15,13 @@ CREATE TABLE product(
   PRIMARY KEY(id),
   FOREIGN KEY(categoryId) REFERENCES category(id)
 );
+
+CREATE TABLE rating(
+  id int NOT NULL AUTO_INCREMENT,
+  productId int NOT NULL,
+  username varchar(50) NOT NULL,
+  comment varchar(500),
+  ratingValue float NOT NULL,
+  PRIMARY KEY(id),
+  FOREIGN KEY(productId) REFERENCES product(id)
+);

@@ -1,9 +1,13 @@
 import express, { request } from 'express';
+import multer from 'multer';
+import path from 'path';
 import bodyParser from 'body-parser';
 import Database from './db/database';
+import fs from 'fs';
 
 var app = express();
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/public'));
 app.use(function (req, res, next) {
 
   // Website you wish to allow to connect
@@ -119,6 +123,57 @@ app.post('/ratings/', async(request, response) => {
 
   response.send(insertedRating);
 });
+
+/* Multer related configs */
+const imageFilter = function(req, file, cb) {
+  if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
+      req.fileValidationError = 'Only image files are allowed!';
+      return cb(new Error('Only image files are allowed!'), false);
+  }
+  cb(null, true);
+};
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+      cb(null, 'public/');
+  },
+
+  // By default, multer removes file extensions so let's add them back
+  filename: function(req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
+
+
+app.post('/productimage/', async(request, response) => {
+    let upload = multer({ storage: storage, fileFilter: imageFilter }).single('product_image');
+
+    upload(request, response, function(err) {
+        // req.file contains information of uploaded file
+
+        if (request.fileValidationError) {
+            return response.send(req.fileValidationError);
+        }
+        else if (!request.file) {
+            return response.send('Please select an image to upload');
+        }
+        else if (err instanceof multer.MulterError) {
+            return response.send(err);
+        }
+        else if (err) {
+            return response.send(err);
+        }
+
+        //Rename file
+        const uploadedFile = request.file;
+        const newPath = `public/product_image_${Number(request.body.productId)}${path.extname(uploadedFile.originalname)}`;
+        fs.rename(uploadedFile.path, newPath, () => null);
+
+        // Display uploaded image for user validation
+        response.send({message: `You have uploaded this image: ${request.file.path}`});
+    });
+});
+
 
 var server = app.listen(3000, function () {
   console.log('Server listening in http://localhost:3000/employeess')

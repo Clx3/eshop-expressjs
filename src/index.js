@@ -1,8 +1,10 @@
+import "regenerator-runtime/runtime.js";
+
 import express from 'express';
 import multer from 'multer';
 import path from 'path';
 import bodyParser from 'body-parser';
-import Database from '../db/database';
+import Database from './db/database';
 import fs from 'fs';
 
 var app = express();

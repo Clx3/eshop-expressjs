@@ -145,6 +145,10 @@ class ProductDao {
     const db = this.database();
 
     try {
+      const ratingQueryResult = await db.query(`
+        DELETE FROM rating
+        WHERE productId = ${productId}`);
+
       const queryResult = await db.query(
         `DELETE FROM product
         WHERE id = ${productId}`);

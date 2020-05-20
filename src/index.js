@@ -177,7 +177,7 @@ app.post('/productimage/', async(request, response) => {
 });
 
 
-var server = app.listen(3000, function () {
+var server = app.listen(process.env.PORT || 8080, function () {
   console.log('Server listening in http://localhost:3000/employeess')
 });
 

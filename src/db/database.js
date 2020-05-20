@@ -15,12 +15,7 @@ class Database {
   }
 
   getDatabase() {
-    const connection = mysql.createConnection({
-      host: Constants.DB_CONN_HOST,
-      user: Constants.DB_CONN_USER,
-      password: Constants.DB_CONN_PASS,
-      database: Constants.DB_NAME
-    });
+    const connection = mysql.createConnection('mysql://c7tsalmi:Rootpass123@mydb.tamk.fi:3306/dbc7tsalmi1');
 
     return {
       query( sql, args ) {

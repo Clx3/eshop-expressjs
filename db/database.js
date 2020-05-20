@@ -11,43 +11,7 @@ class Database {
   constructor() {
     this.categoryDao = new CategoryDao(this.getDatabase);
     this.productDao = new ProductDao(this.getDatabase);
-    this.ratingDao = new RatingDao(this.getDatabase);
-    //this.initTestData();
-  }
-
-  async initTestData() {
-    const category1 = {
-      name: 'Shirts'
-    };
-
-    const category2 = {
-      name: 'Shoes'
-    };
-
-    //await this.categoryDao.insertCategoryAsync(category1);
-    //await this.categoryDao.insertCategoryAsync(category2);
-
-    await this.productDao.getProductsAsync();
-    await this.productDao.insertProductAsync({
-      name: 'Test Product',
-      description: 'Test product with its dummy description. Great product eh.',
-      price: 15.00,
-      categoryId: 1
-    });
-
-    await this.productDao.insertProductAsync({
-      name: 'Test Product 2',
-      description: 'Test product with its dummy description. Great product eh.',
-      price: 25.50,
-      categoryId: 1
-    });
-
-    await this.productDao.insertProductAsync({
-      name: 'Test Product 3',
-      description: 'Test product with its dummy description. Great product eh.',
-      price: 8.00,
-      categoryId: 2
-    });
+    this.ratingDao = new RatingDao(this.getDatabase); 
   }
 
   getDatabase() {
